@@ -6,15 +6,16 @@
     <script src="Hangman.js"></script>
 </head>
 <body>
-    
-    <h1 id="header">Hangman</h1>
+    <div id='header'>
+        <h1 id="header">Hangman</h1>
+    </div>
+    <div class="row">
+        
+    </div>
     <form>
         <label for="letter">Enter Letter:</label><br>
         <input type="text" id="letter" value="">
-        <input id="button" type = 'button' value="Guess"  onclick="checkLetter(letter.value);document.getElementById('letter').value = ''">
+        <input id="button" type = 'button' value="Guess"  onclick="underScoreFormatter()">
     </form>
-    <p id="lettersContained">Letters in:</p>
-    <p id="!lettersContained">Letters not in:</p>
-    <p id="result"></p>
 </body>
 </html>
