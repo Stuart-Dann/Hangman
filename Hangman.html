@@ -5,17 +5,16 @@
     <link rel="stylesheet" href="Hangman.js" type="text/Javascript">
     <script src="Hangman.js"></script>
 </head>
-<body>
+<body onload="hrFormatter()">
     <div id='header'>
         <h1 id="header">Hangman</h1>
     </div>
     <div class="row">
-        
     </div>
     <form>
         <label for="letter">Enter Letter:</label><br>
         <input type="text" id="letter" value="">
-        <input id="button" type = 'button' value="Guess"  onclick="underScoreFormatter()">
+        <input id="button" type = 'button' value="Guess"  onclick="checkGuess()">
     </form>
 </body>
 </html>

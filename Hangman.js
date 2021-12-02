@@ -55,7 +55,9 @@ const wordList = [
 const randomWord = (words) => words[Math.floor(Math.random() * words.length + 1)];
 const word = randomWord(wordList);
 let guesses = [];
-function underScoreFormatter() {
+
+function hrFormatter() {
+	console.log(word);
 	for (let i = 0; i < word.length; i++) {
 		const column = document.createElement('div');
 		column.className = 'column';
@@ -66,7 +68,32 @@ function underScoreFormatter() {
 	}
 	const elements = document.getElementsByClassName('column');
 	for (let i = 0; i < elements.length; i++) {
-		elements[i].style.width = 100 / word.length + '%';
-		elements[i].style.padding = 1 + '%';
+		elements[i].style.width = 100 / (word.length + 1) + '%';
+		elements[i].style.padding = 2 + 'px';
+	}
+}
+
+function checkGuess() {
+	const guess = document.getElementById('letter').value;
+	if (word.includes(guess) && !guesses.includes(guess)) {
+		displayLetter(guess);
+	} else {
+		console.log('no');
+	}
+	guesses.push(guess);
+}
+function displayLetter(guess) {
+	const elements = document.getElementsByClassName('column');
+	const wordArray = Array.from(word);
+	const indicies = [];
+	wordArray.forEach((element, index) => {
+		if (element.includes(guess)) {
+			indicies.push(index);
+		}
+	});
+	for (let i = 0; i < indicies.length; i++) {
+		let p = document.createElement('p');
+		p = document.createTextNode(wordArray[indicies[i]]);
+		elements[indicies[i]].prepend(p);
 	}
 }
