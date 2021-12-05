@@ -53,7 +53,7 @@ const wordList = [
 ];
 
 const randomWord = (words) => words[Math.floor(Math.random() * words.length + 1)];
-const word = randomWord(wordList);
+const word = 'riddle';
 let guesses = [];
 
 function hrFormatter() {
@@ -62,7 +62,10 @@ function hrFormatter() {
 		const column = document.createElement('div');
 		column.className = 'column';
 		const line = document.createElement('hr');
-		column.append(line);
+		const p = document.createElement('p');
+		p.textContent = '.';
+		p.id = 'char ' + i;
+		column.append(p, line);
 		const row = document.querySelector('.row');
 		row.append(column);
 	}
@@ -83,7 +86,6 @@ function checkGuess() {
 	guesses.push(guess);
 }
 function displayLetter(guess) {
-	const elements = document.getElementsByClassName('column');
 	const wordArray = Array.from(word);
 	const indicies = [];
 	wordArray.forEach((element, index) => {
@@ -92,8 +94,7 @@ function displayLetter(guess) {
 		}
 	});
 	for (let i = 0; i < indicies.length; i++) {
-		let p = document.createElement('p');
-		p = document.createTextNode(wordArray[indicies[i]]);
-		elements[indicies[i]].prepend(p);
+		let p = document.getElementById('char ' + indicies[i]);
+		p.textContent = wordArray[indicies[i]];
 	}
 }
