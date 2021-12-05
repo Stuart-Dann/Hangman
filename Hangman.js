@@ -53,16 +53,17 @@ const wordList = [
 ];
 
 const randomWord = (words) => words[Math.floor(Math.random() * words.length + 1)];
-const word = 'riddle';
+const word = randomWord(wordList);
 // randomWord(wordList)
+let domArray = [];
 let guesses = [];
 let lives = 9;
 for (let i = 0; i < word.length; i++) {
-	guesses.push('_');
+	domArray.push('_');
 }
 
 const setUp = () => {
-	document.getElementById('domWord').textContent = guesses.join(' ');
+	document.getElementById('domWord').textContent = domArray.join(' ');
 };
 
 function checkGuess() {
@@ -74,8 +75,9 @@ function checkGuess() {
 			if (word[i] === guess) indices.push(i);
 		}
 		for (let i = 0; i < indices.length; i++) {
-			guesses[indices[i]] = word[indices[i]];
+			domArray[indices[i]] = word[indices[i]];
 		}
+		guesses.push(guess);
 	} else {
 		if (guesses.includes(guess)) {
 			document.getElementById('status').textContent = "You've already guessed that!";
@@ -85,6 +87,8 @@ function checkGuess() {
 			if (lives <= 0) {
 				document.getElementById('status').textContent = 'You Lose!';
 			}
+			document.getElementById('guessed').textContent += guess + ' ';
+			guesses.push(guess);
 		}
 	}
 	setUp();
