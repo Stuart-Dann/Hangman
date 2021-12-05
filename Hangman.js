@@ -53,7 +53,7 @@ const wordList = [
 ];
 
 const randomWord = (words) => words[Math.floor(Math.random() * words.length + 1)];
-const word = 'riddle';
+const word = randomWord(wordList);
 let guesses = [];
 
 function hrFormatter() {
@@ -80,8 +80,15 @@ function checkGuess() {
 	const guess = document.getElementById('letter').value;
 	if (word.includes(guess) && !guesses.includes(guess)) {
 		displayLetter(guess);
+		const domGuess = document.getElementById('domGuess');
+		domGuess.textContent += guess + ',';
 	} else {
-		console.log('no');
+		const lives = document.getElementById('lives');
+		if (lives.textContent == '') {
+			lives.textContent = 'You Lose!';
+		} else {
+			lives.textContent = '/'.repeat(9 - guesses.length);
+		}
 	}
 	guesses.push(guess);
 }
