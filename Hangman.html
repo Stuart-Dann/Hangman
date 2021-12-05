@@ -5,18 +5,18 @@
     <link rel="stylesheet" href="Hangman.js" type="text/Javascript">
     <script src="Hangman.js"></script>
 </head>
-<body onload="hrFormatter()">
+<body onload="setUp()">
     <div id='header'>
         <h1 id="header">Hangman</h1>
     </div>
-    <div class="row">
+    <div>
+        <p id="domWord"><strong></strong></p>
     </div>
     <form>
         <label for="letter">Enter Letter:</label><br>
         <input type="text" id="letter" value="">
         <input id="button" type = 'button' value="Guess"  onclick="checkGuess()">
     </form>
-    <p id='domGuess'></p>
-    <p id='lives'>/////////</p>
+    <p id='status'></p>
 </body>
 </html>

@@ -5,6 +5,8 @@
 body {
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	text-align: center;
+	background-color: black;
+	color: #ffff;
 }
 p {
 	font-size: 1.5em;
@@ -21,4 +23,15 @@ p {
 	content: '';
 	display: table;
 	clear: both;
+}
+
+#domWord {
+	font-size: 3em;
+	width: auto;
+	font-family: arial, sans-serif;
+}
+
+#status {
+	font-size: 1em;
+	font-family: arial, sans-serif;
 }
