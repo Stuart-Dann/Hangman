@@ -84,6 +84,7 @@ function checkGuess() {
 		domGuess.textContent += guess + ',';
 	} else {
 		const lives = document.getElementById('lives');
+		domGuess.textContent += guess + ',';
 		if (lives.textContent == '') {
 			lives.textContent = 'You Lose!';
 		} else {
