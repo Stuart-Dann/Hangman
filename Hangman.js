@@ -69,7 +69,6 @@ const setUp = () => {
 function checkGuess() {
 	const guess = document.getElementById('letter').value;
 	if (word.includes(guess)) {
-		document.getElementById('status').textContent = 'Correct!';
 		let indices = [];
 		for (let i = 0; i < word.length; i++) {
 			if (word[i] === guess) indices.push(i);
@@ -78,18 +77,7 @@ function checkGuess() {
 			domArray[indices[i]] = word[indices[i]];
 		}
 		guesses.push(guess);
-	} else {
-		if (guesses.includes(guess)) {
-			document.getElementById('status').textContent = "You've already guessed that!";
-		} else {
-			document.getElementById('status').textContent = 'Incorrect!';
-			lives -= 1;
-			if (lives <= 0) {
-				document.getElementById('status').textContent = 'You Lose!';
-			}
-			document.getElementById('guessed').textContent += guess + ' ';
-			guesses.push(guess);
-		}
 	}
+	guesses.push(guess);
 	setUp();
 }
