@@ -5,17 +5,11 @@
     <link rel="stylesheet" href="Hangman.js" type="text/Javascript">
     <script src="Hangman.js"></script>
 </head>
-<body onload="setUp()">
-    <div id='header'>
-        <h1 id="header">Hangman</h1>
-    </div>
-    <div>
-        <p id="domWord"></p>
-    </div>
-    <form>
-        <label for="letter">Enter Letter:</label><br>
-        <input type="text" id="letter" value="">
-        <input id="button" type = 'button' value="Guess"  onclick="checkGuess()">
-    </form>
+<body>
+    <h1 id="header">Hangman</h1>
+    <p id="domWord"></p>
+    <h2>Press a Key on your keyboard to guess!</h2>
+    <p id='guessed'>Letters Guessed:</p>
+    <p id='status'></p>
 </body>
 </html>
