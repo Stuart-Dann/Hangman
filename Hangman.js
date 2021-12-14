@@ -77,6 +77,7 @@ function keyID(e) {
 }
 
 function checkGuess(guess) {
+	guess = guess.toLowerCase();
 	if (word.includes(guess)) {
 		document.getElementById('status').textContent = 'Correct!';
 		let indices = [];
@@ -100,5 +101,5 @@ function checkGuess(guess) {
 			guesses.push(guess);
 		}
 	}
-	setUp();
+	setup();
 }
