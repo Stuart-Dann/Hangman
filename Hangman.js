@@ -53,7 +53,7 @@ const wordList = [
 ];
 
 const randomWord = (words) => words[Math.floor(Math.random() * words.length + 1)];
-const word = 'riddle';
+const word = randomWord(wordList);
 // randomWord(wordList)
 let domArray = [];
 let guesses = [];
