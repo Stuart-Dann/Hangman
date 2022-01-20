@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1 id="header">Hangman</h1>
+    <canvas id="hangman" width="180" height="250"></canvas>
     <p id="domWord"></p>
     <p id='guessed'>Letters Guessed:</p>
     <button class='button' onclick="checkGuess(this.textContent)">A</button>
@@ -35,6 +36,8 @@
     <button class='button' onclick="checkGuess(this.textContent)">X</button>
     <button class='button' onclick="checkGuess(this.textContent)">Y</button>
     <button class='button' onclick="checkGuess(this.textContent)">Z</button>
-    <p id='status'></p>
+    <p id='status'> </p>
+    <p id="reset-text">Click <button id='reset-button' onclick="reset()">Reset</button> to reset the game and generate a new number!</p>
+    
 </body>
 </html>

@@ -33,3 +33,14 @@ p {
 	font-size: 1em;
 	font-family: arial, sans-serif;
 }
+
+#hangman {
+	margin: auto;
+}
+
+#reset-text {
+	font-size: 0.75em;
+}
+#reset-button {
+	font-size: 0.75em;
+}
