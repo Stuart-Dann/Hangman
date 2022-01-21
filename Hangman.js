@@ -1,4 +1,5 @@
 // const prompt = require('prompt-sync')({ sigint: true });
+
 const wordList = [
 	'consider',
 	'occur',
@@ -52,17 +53,17 @@ const wordList = [
 	'loaf',
 ];
 
-const randomWord = (words) => words[Math.floor(Math.random() * words.length + 1)];
+const randomWord = (words) => words[Math.floor(Math.random() * words.length)];
 let lives = 9;
 let word = randomWord(wordList);
-let domArray = [];
+let shownWord = [];
 let guesses = [];
 for (let i = 0; i < word.length; i++) {
-	domArray.push('_');
+	shownWord.push('_');
 }
-const setup = () => {
-	document.getElementById('domWord').textContent = domArray.join(' ');
-};
+function setup() {
+	document.getElementById('domWord').textContent = shownWord.join(' ');
+}
 
 window.addEventListener('load', setup);
 
@@ -76,10 +77,7 @@ function checkGuess(guess) {
 			status.textContent = 'Correct!';
 			let indices = [];
 			for (let i = 0; i < word.length; i++) {
-				if (word[i] === guess) indices.push(i);
-			}
-			for (let i = 0; i < indices.length; i++) {
-				domArray[indices[i]] = word[indices[i]];
+				if (word[i] === guess) shownWord[i] = guess;
 			}
 			guesses.push(guess);
 		} else {
@@ -96,7 +94,7 @@ function checkGuess(guess) {
 				guesses.push(guess);
 			}
 		}
-		if (!domArray.includes('_')) {
+		if (!shownWord.includes('_')) {
 			status.textContent = 'You Win!';
 		}
 		setup();
@@ -108,11 +106,11 @@ function reset() {
 	document.getElementById('guessed').textContent = 'Letters Guessed:';
 	lives = 9;
 	word = randomWord(wordList);
-	domArray = [];
+	shownWord = [];
 	guesses = [];
 	console.log('Reset');
 	for (let i = 0; i < word.length; i++) {
-		domArray.push('_');
+		shownWord.push('_');
 	}
 	setup();
 	draw(lives);
@@ -126,6 +124,7 @@ function draw(lives) {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			break;
 		case 8:
+			// what does stroke style do and why is it here and not in the other cases?
 			context.strokeStyle = '#444';
 			context.lineWidth = 10;
 			context.beginPath();
