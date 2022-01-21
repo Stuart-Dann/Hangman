@@ -62,46 +62,7 @@ for (let i = 0; i < word.length; i++) {
 	shownWord.push('_');
 }
 function setup() {
-	document.getElementById('domWord').textContent = shownWord.join(' ');
-}
-
-window.addEventListener('load', setup);
-
-function checkGuess(guess) {
-	const status = document.getElementById('status');
-	guess = guess.toLowerCase();
-	if (lives <= 0) {
-		return null;
-	} else {
-		if (word.includes(guess)) {
-			status.textContent = 'Correct!';
-			let indices = [];
-			for (let i = 0; i < word.length; i++) {
-				if (word[i] === guess) shownWord[i] = guess;
-			}
-			guesses.push(guess);
-		} else {
-			if (guesses.includes(guess)) {
-				status.textContent = "You've already guessed that!";
-			} else {
-				status.textContent = 'Incorrect!';
-				lives -= 1;
-				draw(lives);
-				if (lives <= 0) {
-					status.textContent = 'You Lose!';
-				}
-				document.getElementById('guessed').textContent += guess + ' ';
-				guesses.push(guess);
-			}
-		}
-		if (!shownWord.includes('_')) {
-			status.textContent = 'You Win!';
-		}
-		setup();
-	}
-}
-
-function reset() {
+	toggleDisableKey(false);
 	document.getElementById('status').textContent = '';
 	document.getElementById('guessed').textContent = 'Letters Guessed:';
 	lives = 9;
@@ -112,8 +73,62 @@ function reset() {
 	for (let i = 0; i < word.length; i++) {
 		shownWord.push('_');
 	}
-	setup();
+	document.getElementById('domWord').textContent = shownWord.join(' ');
 	draw(lives);
+}
+
+function bttnAttcher() {
+	const keys = document.getElementsByClassName('key');
+	for (const key of keys) {
+		key.addEventListener('click', checkGuess);
+	}
+	const reset = document.getElementById('reset-button');
+	reset.addEventListener('click', setup);
+}
+
+function toggleDisableKey(bool) {
+	const keys = document.getElementsByClassName('key');
+	for (const key of keys) {
+		key.disabled = bool;
+	}
+}
+
+window.addEventListener('load', () => {
+	setup();
+	bttnAttcher();
+});
+
+function checkGuess(e) {
+	const status = document.getElementById('status');
+	let guess = e.target.textContent;
+	guess = guess.toLowerCase();
+	e.target.disabled = true;
+	if (word.includes(guess)) {
+		status.textContent = 'Correct!';
+		for (let i = 0; i < word.length; i++) {
+			if (word[i] === guess) shownWord[i] = guess;
+		}
+		guesses.push(guess);
+	} else {
+		if (guesses.includes(guess)) {
+			status.textContent = "You've already guessed that!";
+		} else {
+			status.textContent = 'Incorrect!';
+			lives -= 1;
+			draw(lives);
+			if (lives <= 0) {
+				status.textContent = 'You Lose!';
+				toggleDisableKey(true);
+			}
+			document.getElementById('guessed').textContent += guess + ' ';
+			guesses.push(guess);
+		}
+	}
+	if (!shownWord.includes('_')) {
+		status.textContent = 'You Win!';
+		toggleDisableKey(true);
+	}
+	document.getElementById('domWord').textContent = shownWord.join(' ');
 }
 
 function draw(lives) {
