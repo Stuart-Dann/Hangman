@@ -75,7 +75,6 @@ function checkGuess(guess) {
 	} else {
 		if (word.includes(guess)) {
 			status.textContent = 'Correct!';
-			let indices = [];
 			for (let i = 0; i < word.length; i++) {
 				if (word[i] === guess) shownWord[i] = guess;
 			}
