@@ -63,7 +63,7 @@ for (let i = 0; i < word.length; i++) {
 }
 function setup() {
 	toggleDisableKey(false);
-	document.getElementById('status').textContent = '';
+	document.getElementById('status').textContent = 'Click a button to start guessing...';
 	document.getElementById('guessed').textContent = 'Letters Guessed:';
 	lives = 9;
 	word = randomWord(wordList);
