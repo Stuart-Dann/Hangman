@@ -1,3 +1,8 @@
+:root {
+	--bg-color: rgb(46, 46, 46);
+	--txt-color: rgb(201, 201, 201);
+}
+
 #header h1 {
 	text-align: center;
 	font-size: 4em;
@@ -5,6 +10,8 @@
 body {
 	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 	text-align: center;
+	background-color: var(--bg-color);
+	color: var(--txt-color);
 }
 p {
 	font-size: 1.5em;
@@ -43,4 +50,21 @@ p {
 }
 #reset-button {
 	font-size: 0.75em;
+}
+
+button {
+	background-color: var(--bg-color);
+	border: 0;
+	color: var(--txt-color);
+	padding: 10px;
+	transition: background-color 0.5s, color 0.5s;
+}
+
+button:hover:enabled {
+	background-color: var(--txt-color);
+	color: var(--bg-color);
+}
+
+button:disabled {
+	color: var(--bg-color);
 }
