@@ -65,8 +65,8 @@ for (let i = 0; i < word.length; i++) {
 
 function setup() {
 	toggleDisableKey(false);
-	document.getElementById('status').textContent = 'Click a button to start guessing...';
-	document.getElementById('guessed').textContent = 'Letters Guessed:';
+	document.querySelector('#status').textContent = 'Click a button to start guessing...';
+	document.querySelector('#guessed').textContent = 'Letters Guessed:';
 	lives = 9;
 	word = randomWord(wordList);
 	shownWord = [];
@@ -75,16 +75,16 @@ function setup() {
 	for (let i = 0; i < word.length; i++) {
 		shownWord.push('_');
 	}
-	document.getElementById('domWord').textContent = shownWord.join(' ');
+	document.querySelector('#domWord').textContent = shownWord.join(' ');
 	draw(lives);
 }
 
 function bttnAttcher() {
-	const keys = document.getElementsByClassName('key');
+	const keys = document.querySelectorAll('.key');
 	for (const key of keys) {
 		key.addEventListener('click', checkGuess);
 	}
-	const reset = document.getElementById('reset-button');
+	const reset = document.querySelector('#reset-button');
 	reset.addEventListener('click', setup);
 }
 
