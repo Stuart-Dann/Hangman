@@ -71,5 +71,7 @@ button:disabled {
 }
 
 .key {
-	margin: 1em;
+	margin: 2px;
+	width: 2.5em;
+	text-align: center;
 }
