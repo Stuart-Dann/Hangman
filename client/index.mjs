@@ -1,4 +1,5 @@
 // const prompt = require('prompt-sync')({ sigint: true });
+// import e from 'express';
 import { draw } from './draw.mjs';
 
 const wordList = [
@@ -89,22 +90,52 @@ function bttnAttcher() {
 }
 
 function toggleDisableKey(bool) {
-	const keys = document.getElementsByClassName('key');
+	const keys = document.querySelectorAll('.key');
 	for (const key of keys) {
 		key.disabled = bool;
 	}
 }
 
 window.addEventListener('load', () => {
+	console.log('hello');
+
 	setup();
+	makeKeyboard();
 	bttnAttcher();
+	document.body.addEventListener('keyup', checkGuess);
 });
 
+function makeKeyboard() {
+	const keyboard = document.querySelector('#keyboard');
+	const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	for (const letter of alpha) {
+		const elem = document.createElement('button');
+		elem.classList.add('key');
+		elem.textContent = letter;
+		keyboard.append(elem);
+	}
+}
+
 function checkGuess(e) {
-	const status = document.getElementById('status');
-	let guess = e.target.textContent;
-	guess = guess.toLowerCase();
-	e.target.disabled = true;
+	let guess;
+	if (e.type == 'keyup') {
+		guess = e.key;
+		const keys = document.querySelectorAll('.key');
+		for (const key of keys) {
+			if (key.textContent == guess.toUpperCase()) {
+				key.disabled = true;
+			}
+		}
+	} else {
+		guess = e.target.textContent;
+		guess = guess.toLowerCase();
+		e.target.disabled = true;
+	}
+	const status = document.querySelector('#status');
+	if (guesses.includes(guess)) {
+		status.textContent = `You have already guessed ${guess}!`;
+		return;
+	}
 	if (word.includes(guess)) {
 		status.textContent = 'Correct!';
 		for (let i = 0; i < word.length; i++) {
@@ -112,27 +143,19 @@ function checkGuess(e) {
 		}
 		guesses.push(guess);
 	} else {
-		if (word.includes(guess)) {
-			status.textContent = 'Correct!';
-			for (let i = 0; i < word.length; i++) {
-				if (word[i] === guess) shownWord[i] = guess;
-			}
-			guesses.push(guess);
-		} else {
-			status.textContent = 'Incorrect!';
-			lives -= 1;
-			draw(lives);
-			if (lives <= 0) {
-				status.textContent = 'You Lose!';
-				toggleDisableKey(true);
-			}
-			document.getElementById('guessed').textContent += guess + ' ';
-			guesses.push(guess);
+		status.textContent = 'Incorrect!';
+		lives -= 1;
+		draw(lives);
+		if (lives <= 0) {
+			status.textContent = 'You Lose!';
+			toggleDisableKey(true);
 		}
+		document.querySelector('#guessed').textContent += guess + ' ';
+		guesses.push(guess);
 	}
 	if (!shownWord.includes('_')) {
 		status.textContent = 'You Win!';
 		toggleDisableKey(true);
 	}
-	document.getElementById('domWord').textContent = shownWord.join(' ');
+	document.querySelector('#domWord').textContent = shownWord.join(' ');
 }
