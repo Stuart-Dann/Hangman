@@ -65,7 +65,7 @@ for (let i = 0; i < word.length; i++) {
 }
 
 function setup() {
-	toggleDisableKey(false);
+	toggleDisableKeys(false);
 	document.querySelector('#status').textContent = 'Click a button to start guessing...';
 	document.querySelector('#guessed').textContent = 'Letters Guessed:';
 	lives = 9;
@@ -83,13 +83,13 @@ function setup() {
 function bttnAttcher() {
 	const keys = document.querySelectorAll('.key');
 	for (const key of keys) {
-		key.addEventListener('click', checkGuess);
+		key.addEventListener('click', buttonEvent);
 	}
 	const reset = document.querySelector('#reset-button');
 	reset.addEventListener('click', setup);
 }
 
-function toggleDisableKey(bool) {
+function toggleDisableKeys(bool) {
 	const keys = document.querySelectorAll('.key');
 	for (const key of keys) {
 		key.disabled = bool;
@@ -97,14 +97,13 @@ function toggleDisableKey(bool) {
 }
 
 window.addEventListener('load', () => {
-	console.log('hello');
-
 	setup();
 	makeKeyboard();
 	bttnAttcher();
-	document.body.addEventListener('keyup', checkGuess);
+	document.body.addEventListener('keyup', keyupEvent);
 });
 
+//make the on screen keyboard when page is loaded
 function makeKeyboard() {
 	const keyboard = document.querySelector('#keyboard');
 	const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -115,47 +114,49 @@ function makeKeyboard() {
 		keyboard.append(elem);
 	}
 }
-
-function checkGuess(e) {
-	let guess;
-	if (e.type == 'keyup') {
-		guess = e.key;
-		const keys = document.querySelectorAll('.key');
-		for (const key of keys) {
-			if (key.textContent == guess.toUpperCase()) {
-				key.disabled = true;
-			}
+function keyupEvent(e) {
+	const keys = document.querySelectorAll('.key');
+	for (const key of keys) {
+		if (key.textContent == e.key.toUpperCase()) {
+			key.disabled = true;
 		}
-	} else {
-		guess = e.target.textContent;
-		guess = guess.toLowerCase();
-		e.target.disabled = true;
 	}
+	checkGuess(e.key);
+}
+
+function buttonEvent(e) {
+	e.target.disabled = true;
+	console.log('hi');
+	checkGuess(e.target.textContent.toLowerCase());
+}
+
+function checkGuess(letter) {
+	//Check if a key from the computer keyboard has been clicked instead of the on screen
 	const status = document.querySelector('#status');
-	if (guesses.includes(guess)) {
-		status.textContent = `You have already guessed ${guess}!`;
+	if (guesses.includes(letter)) {
+		status.textContent = `You have already guessed ${letter}!`;
 		return;
 	}
-	if (word.includes(guess)) {
+	if (word.includes(letter)) {
 		status.textContent = 'Correct!';
 		for (let i = 0; i < word.length; i++) {
-			if (word[i] === guess) shownWord[i] = guess;
+			if (word[i] === letter) shownWord[i] = letter;
 		}
-		guesses.push(guess);
+		guesses.push(letter);
 	} else {
 		status.textContent = 'Incorrect!';
 		lives -= 1;
 		draw(lives);
 		if (lives <= 0) {
 			status.textContent = 'You Lose!';
-			toggleDisableKey(true);
+			toggleDisableKeys(true);
 		}
-		document.querySelector('#guessed').textContent += guess + ' ';
-		guesses.push(guess);
+		document.querySelector('#guessed').textContent += letter + ' ';
+		guesses.push(letter);
 	}
 	if (!shownWord.includes('_')) {
 		status.textContent = 'You Win!';
-		toggleDisableKey(true);
+		toggleDisableKeys(true);
 	}
 	document.querySelector('#domWord').textContent = shownWord.join(' ');
 }
