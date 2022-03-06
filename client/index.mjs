@@ -65,6 +65,9 @@ for (let i = 0; i < word.length; i++) {
 }
 
 function setup() {
+	if (document.querySelector('#screen-cover')) {
+		document.querySelector('#screen-cover').remove();
+	}
 	toggleDisableKeys(false);
 	document.querySelector('#status').textContent = 'Click a button to start guessing...';
 	document.querySelector('#guessed').textContent = 'Letters Guessed:';
@@ -150,6 +153,7 @@ function checkGuess(letter) {
 		if (lives <= 0) {
 			status.textContent = 'You Lose!';
 			toggleDisableKeys(true);
+			endScreen(false);
 		}
 		document.querySelector('#guessed').textContent += letter + ' ';
 		guesses.push(letter);
@@ -157,6 +161,35 @@ function checkGuess(letter) {
 	if (!shownWord.includes('_')) {
 		status.textContent = 'You Win!';
 		toggleDisableKeys(true);
+		endScreen(true);
 	}
 	document.querySelector('#domWord').textContent = shownWord.join(' ');
+}
+
+function endScreen(win) {
+	const cover = createCover();
+	if (win) {
+		const text = document.createElement('h1');
+		text.textContent = 'You win!';
+		cover.prepend(text);
+	} else {
+		const text = document.createElement('h1');
+		text.textContent = 'You Lose!';
+		cover.prepend(text);
+	}
+}
+
+function createCover() {
+	const cover = document.createElement('div');
+	cover.id = 'screen-cover';
+	cover.classList.toggle('fade');
+	document.body.prepend(cover);
+	const button = document.createElement('button');
+	button.id = 'reset';
+	button.textContent = 'New Game';
+	button.style.margin = 'auto';
+	button.style.fontSize = '2em';
+	cover.append(button);
+	button.addEventListener('click', setup);
+	return cover;
 }
