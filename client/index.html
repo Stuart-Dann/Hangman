@@ -1,17 +1,24 @@
 <!DOCTYPE html>
-<head>
-    <title>Hangman</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-    <link rel="stylesheet" href="index.mjs" type="text/Javascript">
-    <script src="index.mjs" type="module"></script>
-</head>
-<body>
-    <h1 id="header">Hangman</h1>
-    <canvas id="hangman" width="180" height="250"></canvas>
-    <p id="domWord"></p>
-    <p id='guessed'>Letters Guessed:</p>
-    <div id="keyboard"></div>
-    <p id='status'>Click a button to start guessing...</p>
-    <p id="reset-text">Click <button id='reset-button'>Reset</button> to reset the game and generate a new word!</p>
-</body>
-</html>
+
+<title>Hangman</title>
+<link rel="stylesheet" type="text/css" href="menu.css"/>
+
+<h1>Hangman</h1>
+<nav id="nav-list">
+    <ul>
+        <li>
+            <div class="dropdown">
+                <button>Play</button>
+                <div class="dropdown-content">
+                    <ul>
+                        <li><a href="hangman.html">Vs AI</a></li>
+                        <li><a href="hangman.html">Vs Friend</a></li>
+                        <li><a href="hangman.html">Vs Online</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li>Quit</li>
+    </ul>
+</nav>
+

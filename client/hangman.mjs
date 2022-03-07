@@ -66,6 +66,7 @@ for (let i = 0; i < word.length; i++) {
 
 function setup() {
 	if (document.querySelector('#screen-cover')) {
+		document.body.addEventListener('keyup', keyupEvent);
 		document.querySelector('#screen-cover').remove();
 	}
 	toggleDisableKeys(false);
@@ -167,6 +168,7 @@ function checkGuess(letter) {
 }
 
 function endScreen(win) {
+	document.body.removeEventListener('keyup', keyupEvent);
 	const cover = createCover();
 	if (win) {
 		const text = document.createElement('h1');
