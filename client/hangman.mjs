@@ -193,5 +193,9 @@ function createCover() {
 	button.style.fontSize = '2em';
 	cover.append(button);
 	button.addEventListener('click', setup);
+	const text = document.createElement('p');
+	text.id = 'word-reveal';
+	text.textContent = word;
+	cover.append(text);
 	return cover;
 }

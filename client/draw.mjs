@@ -6,7 +6,6 @@ export function draw(lives) {
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			break;
 		case 8:
-			// what does stroke style do and why is it here and not in the other cases?
 			context.strokeStyle = '#c9c9c9';
 			context.lineWidth = 10;
 			context.beginPath();
