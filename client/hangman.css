@@ -6,12 +6,23 @@
 #header h1 {
 	text-align: center;
 	font-size: 4em;
+	size: 4em;
 }
+
 body {
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-family: Arial, sans-serif;
 	text-align: center;
 	background-color: var(--bg-color);
 	color: var(--txt-color);
+}
+ul {
+	list-style-type: none;
+	margin: 0;
+	margin-top: 1em;
+	padding: 0;
+}
+li a {
+	margin-right: 95%;
 }
 p {
 	font-size: 1.5em;
@@ -56,16 +67,20 @@ p {
 	font-size: 0.75em;
 }
 
-button {
+button,
+a {
+	font-family: arial, sans-serif;
 	background-color: var(--txt-color);
 	border: none;
 	color: var(--bg-color);
 	padding: 10px;
 	border-radius: 10px;
 	transition: background-color 0.5s, color 0.5s;
+	text-decoration: none;
 }
 
-button:hover:enabled {
+button:hover:enabled,
+a:hover {
 	background-color: var(--bg-color);
 	color: var(--txt-color);
 }
