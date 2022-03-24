@@ -3,26 +3,11 @@
 	--txt-color: rgb(201, 201, 201);
 }
 
-#header h1 {
-	text-align: center;
-	font-size: 4em;
-	size: 4em;
-}
-
 body {
 	font-family: Arial, sans-serif;
 	text-align: center;
 	background-color: var(--bg-color);
 	color: var(--txt-color);
-}
-ul {
-	list-style-type: none;
-	margin: 0;
-	margin-top: 1em;
-	padding: 0;
-}
-li a {
-	margin-right: 95%;
 }
 p {
 	font-size: 1.5em;
@@ -67,8 +52,12 @@ p {
 	font-size: 0.75em;
 }
 
-button,
 a {
+	text-decoration: none;
+	color: var(--txt-color);
+}
+
+button {
 	font-family: arial, sans-serif;
 	background-color: var(--txt-color);
 	border: none;
@@ -79,8 +68,7 @@ a {
 	text-decoration: none;
 }
 
-button:hover:enabled,
-a:hover {
+button:hover:enabled {
 	background-color: var(--bg-color);
 	color: var(--txt-color);
 }
@@ -118,4 +106,10 @@ button:disabled {
 #screen-cover > h1 {
 	margin-top: 5em;
 	font-size: 4em;
+}
+
+h1 {
+	text-align: center;
+	font-size: 3em;
+	size: 4em;
 }
