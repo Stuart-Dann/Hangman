@@ -1,3 +1,5 @@
+import { loadHangman } from './loadHangman.mjs';
+
 function draw(canvas) {
 	const context = canvas.getContext('2d');
 	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,6 +56,7 @@ function draw(canvas) {
 }
 
 export function home() {
+	document.body.innerHTML = '';
 	const h1 = document.createElement('h1');
 	h1.textContent = 'Hangman';
 	h1.id = 'home-h1';
@@ -69,7 +72,7 @@ export function home() {
 	document.body.append(nav);
 	const play = document.createElement('button');
 	play.textContent = 'Play';
-	// play.addEventListener('click', hangman);
+	play.addEventListener('click', loadHangman);
 	nav.append(play);
 	const div = document.createElement('div');
 	div.id = 'container';
@@ -80,11 +83,11 @@ export function home() {
 	ul.append(li);
 	const local = document.createElement('button');
 	local.textContent = 'Vs Local';
-	// local.addEventListener('click', hangman);
+	local.addEventListener('click', loadHangman);
 	li.append(local);
 	const online = document.createElement('button');
 	online.textContent = 'Vs Online';
-	// online.addEventListener('click', hangman);
+	online.addEventListener('click', loadHangman);
 	li.append(online);
 	const css = document.querySelector('#css');
 	css.href = 'style.css';
