@@ -103,11 +103,14 @@ function toggleDisableKeys(bool) {
 
 window.addEventListener('load', () => {
 	home();
-	// setup();
-	// makeKeyboard();
-	// bttnAttcher();
-	// document.body.addEventListener('keyup', keyupEvent);
 });
+
+export function hangmanloaded() {
+	setup();
+	makeKeyboard();
+	bttnAttcher();
+	document.body.addEventListener('keyup', keyupEvent);
+}
 
 //make the on screen keyboard when page is loaded
 function makeKeyboard() {
@@ -181,13 +184,6 @@ function endScreen(win) {
 		text.textContent = 'You Lose!';
 		cover.prepend(text);
 	}
-}
-
-function createCover() {
-	const cover = document.createElement('div');
-	cover.id = 'screen-cover';
-	cover.classList.toggle('fade');
-	document.body.prepend(cover);
 	const button = document.createElement('button');
 	button.id = 'reset';
 	button.textContent = 'New Game';
@@ -195,9 +191,17 @@ function createCover() {
 	button.style.fontSize = '2em';
 	cover.append(button);
 	button.addEventListener('click', setup);
+
 	const text = document.createElement('p');
 	text.id = 'word-reveal';
 	text.textContent = word;
 	cover.append(text);
+}
+
+function createCover() {
+	const cover = document.createElement('div');
+	cover.id = 'screen-cover';
+	cover.classList.toggle('fade');
+	document.body.prepend(cover);
 	return cover;
 }
