@@ -1,9 +1,4 @@
-window.addEventListener('load', () => {
-	draw();
-});
-
-function draw() {
-	const canvas = document.getElementById('hangman');
+function draw(canvas) {
 	const context = canvas.getContext('2d');
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	context.strokeStyle = '#c9c9c9';
@@ -56,4 +51,41 @@ function draw() {
 	context.moveTo(122, 190);
 	context.lineTo(135, 185);
 	context.stroke();
+}
+
+export function home() {
+	const h1 = document.createElement('h1');
+	h1.textContent = 'Hangman';
+	h1.id = 'home-h1';
+	document.body.append(h1);
+	const canvas = document.createElement('canvas');
+	canvas.id = 'Hangman';
+	canvas.width = 180;
+	canvas.height = 250;
+	document.body.append(canvas);
+	draw(canvas);
+	const nav = document.createElement('nav');
+	nav.id = 'nav-list';
+	document.body.append(nav);
+	const play = document.createElement('button');
+	play.textContent = 'Play';
+	// play.addEventListener('click', hangman);
+	nav.append(play);
+	const div = document.createElement('div');
+	div.id = 'container';
+	nav.append(div);
+	const ul = document.createElement('ul');
+	div.append(ul);
+	const li = document.createElement('li');
+	ul.append(li);
+	const local = document.createElement('button');
+	local.textContent = 'Vs Local';
+	// local.addEventListener('click', hangman);
+	li.append(local);
+	const online = document.createElement('button');
+	online.textContent = 'Vs Online';
+	// online.addEventListener('click', hangman);
+	li.append(online);
+	const css = document.querySelector('#css');
+	css.href = 'style.css';
 }

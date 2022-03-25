@@ -1,6 +1,7 @@
 // const prompt = require('prompt-sync')({ sigint: true });
 // import e from 'express';
 import { draw } from './draw.mjs';
+import { home } from './home.mjs';
 
 const wordList = [
 	'consider',
@@ -101,10 +102,11 @@ function toggleDisableKeys(bool) {
 }
 
 window.addEventListener('load', () => {
-	setup();
-	makeKeyboard();
-	bttnAttcher();
-	document.body.addEventListener('keyup', keyupEvent);
+	home();
+	// setup();
+	// makeKeyboard();
+	// bttnAttcher();
+	// document.body.addEventListener('keyup', keyupEvent);
 });
 
 //make the on screen keyboard when page is loaded
