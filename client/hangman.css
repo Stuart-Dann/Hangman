@@ -47,6 +47,7 @@ p {
 
 .reset-text {
 	font-size: 0.75em;
+	max-width: 235.484px;
 }
 
 a {
@@ -65,6 +66,10 @@ button {
 	text-decoration: none;
 }
 
+#header {
+	transition: none;
+}
+
 button:enabled:hover {
 	background-color: var(--bg-color);
 	color: var(--txt-color);
@@ -76,7 +81,7 @@ button:disabled {
 
 #reset-button {
 	font-size: 0.75em;
-	padding: 5px;
+	padding: 7px;
 	margin: 2px;
 }
 
