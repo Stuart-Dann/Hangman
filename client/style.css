@@ -22,6 +22,7 @@ ul {
 button {
 	margin-left: 10px;
 	margin-right: 10px;
+	cursor: pointer;
 }
 button {
 	font-size: 1em;

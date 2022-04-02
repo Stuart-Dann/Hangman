@@ -1,7 +1,6 @@
 import { home } from './home.mjs';
 import { hangmanloaded } from './hangman.mjs';
-
-export function loadHangman() {
+export function loadHangman(e) {
 	const styleLink = document.querySelector('#css');
 	styleLink.href = 'hangman.css';
 	const body = document.body;
@@ -78,5 +77,5 @@ export function loadHangman() {
 	li = document.createElement('li');
 	li.append(restOfResetText);
 	ul.append(li);
-	hangmanloaded();
+	hangmanloaded(e.target.textContent);
 }

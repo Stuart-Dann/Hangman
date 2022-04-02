@@ -58,16 +58,18 @@ const wordList = [
 
 const randomWord = (words) => words[Math.floor(Math.random() * words.length)];
 let lives = 9;
-let word = randomWord(wordList);
+let word;
 let shownWord = [];
 let guesses = [];
-for (let i = 0; i < word.length; i++) {
-	shownWord.push('_');
-}
+let local;
 
-function setup() {
+function setup(e) {
+	if (local == true) {
+		localSetup();
+		return;
+	}
+	document.body.addEventListener('keyup', keyupEvent);
 	if (document.querySelector('#screen-cover')) {
-		document.body.addEventListener('keyup', keyupEvent);
 		document.querySelector('#screen-cover').remove();
 	}
 	toggleDisableKeys(false);
@@ -77,11 +79,48 @@ function setup() {
 	word = randomWord(wordList);
 	shownWord = [];
 	guesses = [];
-	console.log('Reset');
 	for (let i = 0; i < word.length; i++) {
 		shownWord.push('_');
 	}
 	document.querySelector('#domWord').textContent = shownWord.join(' ');
+	draw(lives);
+}
+
+function localSetup() {
+	document.body.removeEventListener('keyup', keyupEvent);
+	if (document.querySelector('#screen-cover')) {
+		document.querySelector('#screen-cover').remove();
+	}
+	toggleDisableKeys(false);
+	document.querySelector('#status').textContent = 'Click a button to start guessing...';
+	document.querySelector('#guessed').textContent = 'Letters Guessed:';
+	lives = 9;
+
+	const cover = createCover();
+
+	const text = document.createElement('h1');
+	text.textContent = 'Enter a Word:';
+	cover.prepend(text);
+
+	const input = document.createElement('input');
+	input.type = 'text';
+	input.id = 'local-word';
+	cover.append(input);
+
+	const button = document.createElement('button');
+	button.textContent = 'Submit';
+	button.addEventListener('click', () => {
+		word = document.querySelector('#local-word').value;
+		shownWord = [];
+		guesses = [];
+		for (let i = 0; i < word.length; i++) {
+			shownWord.push('_');
+		}
+		document.querySelector('#domWord').textContent = shownWord.join(' ');
+		document.querySelector('#screen-cover').remove();
+		document.body.addEventListener('keyup', keyupEvent);
+	});
+	cover.append(button);
 	draw(lives);
 }
 
@@ -105,11 +144,15 @@ window.addEventListener('load', () => {
 	home();
 });
 
-export function hangmanloaded() {
+export function hangmanloaded(e) {
+	if (e == 'Vs Local') {
+		local = true;
+	} else {
+		local = false;
+	}
 	setup();
 	makeKeyboard();
 	bttnAttcher();
-	document.body.addEventListener('keyup', keyupEvent);
 }
 
 //make the on screen keyboard when page is loaded
@@ -135,7 +178,6 @@ function keyupEvent(e) {
 
 function buttonEvent(e) {
 	e.target.disabled = true;
-	console.log('hi');
 	checkGuess(e.target.textContent.toLowerCase());
 }
 
