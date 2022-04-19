@@ -1,7 +1,16 @@
-:root {
-	--bg-color: rgb(46, 46, 46);
-	--txt-color: rgb(201, 201, 201);
+@media (prefers-color-scheme: dark) {
+    :root {
+		--bg-color: rgb(46, 46, 46);
+		--txt-color: rgb(201, 201, 201);
+	}
 }
+@media (prefers-color-scheme: light) {
+    :root {
+		--bg-color: rgb(201, 201, 201);
+		--txt-color: rgb(46, 46, 46 );
+	}
+}
+
 
 body {
 	font-family: Arial, sans-serif;
