@@ -64,6 +64,10 @@ a {
 	color: var(--txt-color);
 }
 
+#localH1{
+	color: white;
+}
+
 button {
 	font-family: arial, sans-serif;
 	background-color: var(--txt-color);
@@ -74,7 +78,9 @@ button {
 	transition: background-color 0.5s, color 0.5s;
 	text-decoration: none;
 }
-
+canvas{
+	stroke: aqua;
+}
 #header {
 	transition: none;
 }

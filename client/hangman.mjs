@@ -1,93 +1,75 @@
 // const prompt = require('prompt-sync')({ sigint: true });
 // import e from 'express';
+// import { response } from 'express';
 import { draw } from './draw.mjs';
 import { home } from './home.mjs';
 
-const wordList = [
-	'consider',
-	'occur',
-	'gentle',
-	'crush',
-	'tasteful',
-	'measure',
-	'border',
-	'moldy',
-	'rustic',
-	'dust',
-	'boundless',
-	'aback',
-	'stale',
-	'deserve',
-	'squeak',
-	'splendid',
-	'side',
-	'friend',
-	'punishment',
-	'colorful',
-	'ring',
-	'march',
-	'concerned',
-	'gleaming',
-	'inconclusive',
-	'tire',
-	'brief',
-	'zealous',
-	'wool',
-	'telephone',
-	'include',
-	'gate',
-	'automatic',
-	'library',
-	'embarrassed',
-	'beneficial',
-	'tiger',
-	'rabbit',
-	'chemical',
-	'swing',
-	'shiver',
-	'actor',
-	'riddle',
-	'hospitable',
-	'deserted',
-	'hallowed',
-	'lacking',
-	'advice',
-	'wax',
-	'loaf',
-];
+// const wordList = [
+// 	'consider',
+// 	'occur',
+// 	'gentle',
+// 	'crush',
+// 	'tasteful',
+// 	'measure',
+// 	'border',
+// 	'moldy',
+// 	'rustic',
+// 	'dust',
+// 	'boundless',
+// 	'aback',
+// 	'stale',
+// 	'deserve',
+// 	'squeak',
+// 	'splendid',
+// 	'side',
+// 	'friend',
+// 	'punishment',
+// 	'colorful',
+// 	'ring',
+// 	'march',
+// 	'concerned',
+// 	'gleaming',
+// 	'inconclusive',
+// 	'tire',
+// 	'brief',
+// 	'zealous',
+// 	'wool',
+// 	'telephone',
+// 	'include',
+// 	'gate',
+// 	'automatic',
+// 	'library',
+// 	'embarrassed',
+// 	'beneficial',
+// 	'tiger',
+// 	'rabbit',
+// 	'chemical',
+// 	'swing',
+// 	'shiver',
+// 	'actor',
+// 	'riddle',
+// 	'hospitable',
+// 	'deserted',
+// 	'hallowed',
+// 	'lacking',
+// 	'advice',
+// 	'wax',
+// 	'loaf',
+// ];
 
-const randomWord = (words) => words[Math.floor(Math.random() * words.length)];
+// const randomWord = (words) => words[Math.floor(Math.random() * words.length)];
 let lives = 9;
 let word;
 let shownWord = [];
 let guesses = [];
 let local;
 
-function setup(e) {
-	if (local == true) {
-		localSetup();
-		return;
-	}
-	document.body.addEventListener('keyup', keyupEvent);
-	if (document.querySelector('#screen-cover')) {
-		document.querySelector('#screen-cover').remove();
-	}
-	toggleDisableKeys(false);
-	document.querySelector('#status').textContent = 'Click a button to start guessing...';
-	document.querySelector('#guessed').textContent = 'Letters Guessed:';
-	lives = 9;
-	word = randomWord(wordList);
-	shownWord = [];
-	guesses = [];
-	for (let i = 0; i < word.length; i++) {
-		shownWord.push('_');
-	}
-	document.querySelector('#domWord').textContent = shownWord.join(' ');
-	draw(lives);
+async function loadWord() {
+	const response = await fetch('words');
+	word = await response.json();
 }
 
-function localSetup() {
-	document.body.removeEventListener('keyup', keyupEvent);
+function setup(local) {
 	if (document.querySelector('#screen-cover')) {
 		document.querySelector('#screen-cover').remove();
 	}
@@ -95,32 +77,47 @@ function localSetup() {
 	document.querySelector('#status').textContent = 'Click a button to start guessing...';
 	document.querySelector('#guessed').textContent = 'Letters Guessed:';
 	lives = 9;
+	//If Vs local is selected
+	if (local == true) {
+		document.body.removeEventListener('keyup', keyupEvent);
 
-	const cover = createCover();
+		const cover = createCover();
 
-	const text = document.createElement('h1');
-	text.textContent = 'Enter a Word:';
-	cover.prepend(text);
+		const text = document.createElement('h1');
+		text.id = 'localH1';
+		text.textContent = 'Enter a Word:';
+		cover.prepend(text);
 
-	const input = document.createElement('input');
-	input.type = 'text';
-	input.id = 'local-word';
-	cover.append(input);
+		const input = document.createElement('input');
+		input.type = 'text';
+		input.id = 'local-word';
+		cover.append(input);
 
-	const button = document.createElement('button');
-	button.textContent = 'Submit';
-	button.addEventListener('click', () => {
-		word = document.querySelector('#local-word').value;
+		const button = document.createElement('button');
+		button.textContent = 'Submit';
+		button.addEventListener('click', () => {
+			word = document.querySelector('#local-word').value;
+			shownWord = [];
+			guesses = [];
+			for (let i = 0; i < word.length; i++) {
+				shownWord.push('_');
+			}
+			document.querySelector('#domWord').textContent = shownWord.join(' ');
+			document.querySelector('#screen-cover').remove();
+			document.body.addEventListener('keyup', keyupEvent);
+		});
+		cover.append(button);
+	} else {
+		loadWord();
+		console.log(word);
 		shownWord = [];
 		guesses = [];
 		for (let i = 0; i < word.length; i++) {
 			shownWord.push('_');
 		}
 		document.querySelector('#domWord').textContent = shownWord.join(' ');
-		document.querySelector('#screen-cover').remove();
 		document.body.addEventListener('keyup', keyupEvent);
-	});
-	cover.append(button);
+	}
 	draw(lives);
 }
 
@@ -150,7 +147,7 @@ export function hangmanloaded(e) {
 	} else {
 		local = false;
 	}
-	setup();
+	setup(local);
 	makeKeyboard();
 	bttnAttcher();
 }

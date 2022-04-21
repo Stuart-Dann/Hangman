@@ -1,12 +1,16 @@
 export function draw(lives) {
 	const canvas = document.getElementById('hangman');
 	const context = canvas.getContext('2d');
+	if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+		context.strokeStyle = '#9c9c9c';
+	} else {
+		context.strokeStyle = '#c9c9c9';
+	}
 	switch (lives) {
 		case 9:
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			break;
 		case 8:
-			context.strokeStyle = '#c9c9c9';
 			context.lineWidth = 10;
 			context.beginPath();
 			context.moveTo(175, 225);
