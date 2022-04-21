@@ -3,7 +3,6 @@ import { loadHangman } from './loadHangman.mjs';
 function draw(canvas) {
 	const context = canvas.getContext('2d');
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	context.strokeStyle = '#c9c9c9';
 	context.lineWidth = 10;
 	context.beginPath();
 	context.moveTo(175, 225);
