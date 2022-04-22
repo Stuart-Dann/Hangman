@@ -17,11 +17,10 @@ async function loadWord() {
 	word = await response.json();
 	shownWord = word.shownWord;
 	document.querySelector("#domWord").textContent = shownWord.join(" ");
-	console.log(word.word);
 }
 
 async function loadGuess(guess, shownWord) {
-	let payload = { msg: guess, word: word.word, shownWord: shownWord, gameOver: gameOver };
+	let payload = { msg: guess, shownWord: shownWord, gameOver: gameOver };
 
 	const response = await fetch("words", {
 		method: "POST",
@@ -31,9 +30,7 @@ async function loadGuess(guess, shownWord) {
 
 	if (response.ok) {
 		const svrGuess = await response.json();
-		console.log(svrGuess.guess, svrGuess.correct, svrGuess.guessed);
 		shownWord = svrGuess.shownWord;
-		console.log();
 		responseToServer(svrGuess.shownWord, svrGuess.correct, svrGuess.guessed, svrGuess.guess);
 	} else {
 		console.log("Error");
@@ -48,7 +45,7 @@ function responseToServer(shownWord, correct, guessed, guess) {
 		lives -= 1;
 		draw(lives);
 		if (lives <= 0) {
-			endScreen(false);
+			endScreen(false, shownWord);
 		}
 		if (correct) {
 			document.querySelector("#status").textContent = "Correct";
@@ -56,7 +53,7 @@ function responseToServer(shownWord, correct, guessed, guess) {
 			document.querySelector("#status").textContent = "Incorrect";
 		}
 		if (!shownWord.includes("_")) {
-			endScreen(true);
+			endScreen(true, shownWord);
 		}
 	} else {
 		document.querySelector("#status").textContent = `You have already guessed ${guess}!`;
@@ -115,7 +112,6 @@ function bttnAttcher() {
 		key.addEventListener("click", buttonEvent);
 	}
 	const reset = document.querySelector("#reset-button");
-	console.log(local);
 	reset.addEventListener("click", setup);
 }
 
@@ -159,7 +155,6 @@ function keyupEvent(e) {
 			key.disabled = true;
 		}
 	}
-	console.log(local);
 	if (local) {
 		checkGuess(e.key);
 	} else {
@@ -209,7 +204,7 @@ function checkGuess(letter) {
 	document.querySelector("#domWord").textContent = shownWord.join(" ");
 }
 
-function endScreen(win) {
+function endScreen(win, shownWord) {
 	document.body.removeEventListener("keyup", keyupEvent);
 	const cover = createCover();
 	if (win) {
@@ -245,5 +240,4 @@ function createCover() {
 	cover.classList.toggle("fade");
 	document.body.prepend(cover);
 	return cover;
-	gameOver = true;
 }

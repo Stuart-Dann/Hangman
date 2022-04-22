@@ -1,11 +1,11 @@
-import { loadHangman } from './loadHangman.mjs';
+import { loadHangman } from "./loadHangman.mjs";
 
 function draw(canvas) {
-	const context = canvas.getContext('2d');
-	if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-		context.strokeStyle = '#9c9c9c';
+	const context = canvas.getContext("2d");
+	if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+		context.strokeStyle = "#9c9c9c";
 	} else {
-		context.strokeStyle = '#c9c9c9';
+		context.strokeStyle = "#c9c9c9";
 	}
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	context.lineWidth = 10;
@@ -60,39 +60,35 @@ function draw(canvas) {
 }
 
 export function home() {
-	document.body.innerHTML = '';
-	const h1 = document.createElement('h1');
-	h1.textContent = 'Hangman';
-	h1.id = 'home-h1';
+	document.body.innerHTML = "";
+	const h1 = document.createElement("h1");
+	h1.textContent = "Hangman";
+	h1.id = "home-h1";
 	document.body.append(h1);
-	const canvas = document.createElement('canvas');
-	canvas.id = 'Hangman';
+	const canvas = document.createElement("canvas");
+	canvas.id = "Hangman";
 	canvas.width = 180;
 	canvas.height = 250;
 	document.body.append(canvas);
 	draw(canvas);
-	const nav = document.createElement('nav');
-	nav.id = 'nav-list';
+	const nav = document.createElement("nav");
+	nav.id = "nav-list";
 	document.body.append(nav);
-	const play = document.createElement('button');
-	play.textContent = 'Play';
-	play.addEventListener('click', loadHangman);
+	const play = document.createElement("button");
+	play.textContent = "Play";
+	play.addEventListener("click", loadHangman);
 	nav.append(play);
-	const div = document.createElement('div');
-	div.id = 'container';
+	const div = document.createElement("div");
+	div.id = "container";
 	nav.append(div);
-	const ul = document.createElement('ul');
+	const ul = document.createElement("ul");
 	div.append(ul);
-	const li = document.createElement('li');
+	const li = document.createElement("li");
 	ul.append(li);
-	const local = document.createElement('button');
-	local.textContent = 'Vs Local';
-	local.addEventListener('click', loadHangman);
+	const local = document.createElement("button");
+	local.textContent = "Vs Local";
+	local.addEventListener("click", loadHangman);
 	li.append(local);
-	const online = document.createElement('button');
-	online.textContent = 'Vs Online';
-	online.addEventListener('click', loadHangman);
-	li.append(online);
-	const css = document.querySelector('#css');
-	css.href = 'style.css';
+	const css = document.querySelector("#css");
+	css.href = "style.css";
 }

@@ -13,7 +13,7 @@ let word;
 let gameOver;
 
 app.get("/words", (req, res) => {
-	let word = randomWords();
+	word = randomWords();
 	shownWord = [];
 	guesses = [];
 	for (let i = 0; i < word.length; i++) {
@@ -24,7 +24,6 @@ app.get("/words", (req, res) => {
 
 app.post("/words", express.json(), (req, res) => {
 	guess = req.body.msg;
-	word = req.body.word;
 	gameOver = req.body.gameOver;
 	if (guesses.includes(guess)) {
 		guessed = true;
