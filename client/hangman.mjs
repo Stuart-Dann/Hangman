@@ -69,6 +69,21 @@ async function loadWord() {
 	word = await response.json();
 }
 
+async function loadGuess(guess) {
+	const payload = { msg: guess };
+
+	const response = await fetch('guess', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload),
+	});
+
+	if (response.ok) {
+		const svrGuess = await response.json();
+		console.log(svrGuess);
+	}
+}
+
 function setup(local) {
 	if (document.querySelector('#screen-cover')) {
 		document.querySelector('#screen-cover').remove();
@@ -112,9 +127,7 @@ function setup(local) {
 		console.log(word);
 		shownWord = [];
 		guesses = [];
-		for (let i = 0; i < word.length; i++) {
-			shownWord.push('_');
-		}
+
 		document.querySelector('#domWord').textContent = shownWord.join(' ');
 		document.body.addEventListener('keyup', keyupEvent);
 	}
@@ -170,7 +183,8 @@ function keyupEvent(e) {
 			key.disabled = true;
 		}
 	}
-	checkGuess(e.key);
+	// checkGuess(e.key);
+	loadGuess(e.key);
 }
 
 function buttonEvent(e) {
