@@ -1,12 +1,12 @@
 import { loadHangman } from './loadHangman.mjs';
 
 function draw(canvas) {
+	const context = canvas.getContext('2d');
 	if (window.matchMedia('(prefers-color-scheme: light)').matches) {
 		context.strokeStyle = '#9c9c9c';
 	} else {
 		context.strokeStyle = '#c9c9c9';
 	}
-	const context = canvas.getContext('2d');
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	context.lineWidth = 10;
 	context.beginPath();
