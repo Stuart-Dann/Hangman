@@ -45,7 +45,7 @@ function responseToServer(shownWord, correct, guessed, guess) {
 		lives -= 1;
 		draw(lives);
 		if (lives <= 0) {
-			endScreen(false, shownWord);
+			endScreen(false);
 		}
 		if (correct) {
 			document.querySelector("#status").textContent = "Correct";
@@ -53,7 +53,7 @@ function responseToServer(shownWord, correct, guessed, guess) {
 			document.querySelector("#status").textContent = "Incorrect";
 		}
 		if (!shownWord.includes("_")) {
-			endScreen(true, shownWord);
+			endScreen(true);
 		}
 	} else {
 		document.querySelector("#status").textContent = `You have already guessed ${guess}!`;
@@ -204,7 +204,7 @@ function checkGuess(letter) {
 	document.querySelector("#domWord").textContent = shownWord.join(" ");
 }
 
-function endScreen(win, shownWord) {
+function endScreen(win) {
 	document.body.removeEventListener("keyup", keyupEvent);
 	const cover = createCover();
 	if (win) {
